@@ -33,4 +33,5 @@ The live research dashboard is hosted via GitHub Pages:
 
 Credits
 This project was developed by Moussa-Alioune Taboure at Vanier College
+
 Research assistance provided by mai.trigraph.org and Ivan T. Ivanov
