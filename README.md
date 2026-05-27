@@ -9,6 +9,8 @@ grokking_code.py: A standalone PyTorch research pipeline. It implements a Transf
 
 index.html, script.js, & style.css: An interactive web-based dashboard designed to visualize the internal mechanics of these models. Users can explore how weight embeddings crystallize into trigonometric basis functions during training.
 
+An overall explanation of what grokking is in neural networks.
+
 Key Research Components
 
 Phenomenon of Grokking and Co-Grokking
