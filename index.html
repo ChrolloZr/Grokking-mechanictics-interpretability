@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeless: Neural Mechanics & Kinematic Grokking in Large Models | Moussa-Alioune Taboure</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- MathJax Configuration & CDN for pristine rendering of formulas -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="tex2jax_process">
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>TIMELESS</h1>
+        <span>Moussa-Alioune Taboure</span>
+      </div>
+      
+      <nav class="nav-container">
+        <ul class="nav-links">
+          <li class="nav-item active" data-target="intro">
+            <a href="#intro">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <span>Introduction</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="physics">
+            <a href="#physics">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+              <span>Kinematics & LLMs</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="dashboard">
+            <a href="#dashboard">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+              <span style="font-weight: 700; color: var(--accent-cyan);">Fourier Visualizer</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="task1-3">
+            <a href="#task1-3">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>Modular Grokking</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="task4">
+            <a href="#task4">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Scarcity Regimes</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="math-foundations">
+            <a href="#math-foundations">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 9 8 8 8-8"/></svg>
+              <span>Neural Mechanics</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="task5">
+            <a href="#task5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>AI Safety & Alignment</span>
+            </a>
+          </li>
+          <li class="nav-item" data-target="task6-7">
+            <a href="#task6-7">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+              <span>Advanced Algebra</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="designer-profile">
+          <div class="designer-avatar">MAT</div>
+          <div class="designer-info">
+            <h4>M. Taboure</h4>
+            <p>Lead AI Researcher</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- ========================================== -->
+      <!-- SECTION: INTRODUCTION -->
+      <!-- ========================================== -->
+      <section id="intro" class="section active">
+        <h2 class="section-title">Visualizing Neural Phase Transitions</h2>
+        
+        <!-- Mentor Acknowledgment Banner -->
+        <div class="card" style="border-color: rgba(99, 102, 241, 0.4); background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.04) 100%);">
+          <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-cyan); margin-bottom: 0.5rem; font-weight: 700;">Academic Acknowledgement</h4>
+          <p style="margin-bottom: 0; font-style: italic; font-size: 0.95rem; color: var(--text-primary);">
+            "Special thanks to my professor and mentor, <strong>Ivan T. Ivanov</strong>, who guided my introduction to the internal mathematical formulations of Large Language Models (LLMs) and the deep analytical mechanics behind neural architectures."
+          </p>
+        </div>
+
+        <div class="card">
+          <p>
+            <strong>Grokking</strong> is one of the most enigmatic phenomena in modern deep learning. Historically, once a neural network achieves near-zero training error while validation error remains high, standard theory dictates that the model has simply <strong>overfitted</strong> the training set—memorizing noise instead of finding the underlying function. 
+          </p>
+          <div class="highlight-box">
+            <p>
+              "Grokking occurs when training is continued thousands of epochs past this apparent point of convergence. Suddenly, validation accuracy 'clicks' and shoots up to near-perfect levels, showing that the network has undergone a clean phase transition."
+            </p>
+          </div>
+          <p>
+            This website, titled <strong>Timeless</strong>, represents a comprehensive investigation of Modular Grokking in a one-layer transformer model using the lens of <strong>Mechanistic Interpretability</strong>. Rather than treating deep networks as black boxes, we dissect their internal weight matrices, embedding representations, and MLP activation pathways to discover the exact mathematical algorithm the model constructs during its phase transition from rote memorization to generalizing clean structural rules. All mathematical formulations are rendered in pristine vector notation using MathJax, with modular calculations scaled to a modulus of \(p = 131\).
+          </p>
+        </div>
+
+        <h3 class="subtitle">One-Layer Transformer Architecture</h3>
+        <div class="card">
+          <p>
+            To investigate modular arithmetic and algebraic kinematics, we employ a standard one-layer transformer model. This architecture is stripped of all extraneous complexity, making it a perfect subject for mechanistic dissection.
+          </p>
+          <img src="one-layer-transformer.webp" alt="One-Layer Transformer Architecture" style="width: 100%; border-radius: 12px; border: 1px solid var(--border-glass); margin: 1rem 0; box-shadow: var(--shadow-md);">
+          <p>
+            The model receives an input sequence of three tokens: \(a\), \(b\), and an operator \(op\) (e.g., \(+\) or \(*\)). It is trained to predict the target token \(c = a \oplus b \pmod{131}\) at the final token position. Key features of the architecture include:
+          </p>
+          <ul>
+            <li><strong>Embedding & Positional Embedding</strong>: Maps input tokens to the residual stream without layer normalization.</li>
+            <li><strong>Attention Head Block</strong>: Interrogates key, query, and value projections to aggregate information from inputs.</li>
+            <li><strong>MLP Sublayer</strong>: An activation layer mapping features into high dimensions (\(d_{mlp} = 512\)) using ReLU or GeLU functions.</li>
+            <li><strong>Unembedding</strong>: Projects output states back to the vocabulary space to produce class logits.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: KINEMATICS & LLMs -->
+      <!-- ========================================== -->
+      <section id="physics" class="section">
+        <h2 class="section-title">Grokking in LLMs: Solving Mechanics & Kinematics</h2>
+        <div class="card">
+          <p>
+            How does the phenomenon of grokking apply to **Large Language Models (LLMs)** and their ability to solve **physics mechanics problems**? 
+            When an LLM is asked to solve kinematics equations—such as calculating the trajectory of a projectile under gravity—the model is essentially executing a complex mathematical mapping over continuous inputs:
+          </p>
+          <div class="math-block">
+            $$y(x) = x \tan(\theta) - \frac{g x^2}{2 v_0^2 \cos^2(\theta)}$$
+          </div>
+          <p>
+            Here, the model must map physical parameters like launch angle \(\theta\), initial velocity \(v_0\), and horizontal distance \(x\) to the correct vertical coordinate \(y\). 
+          </p>
+          
+          <h3 class="subtitle">The Overfitting Sandbox: Rote Memorization</h3>
+          <p>
+            During the early stages of training on kinematics datasets, the LLM exhibits typical **memorization behavior**:
+          </p>
+          <ul>
+            <li><strong>Lookup-Table Memorization</strong>: The model memorizes specific numerical coordinates and trajectories present in its training corpus. It stores representations as discrete associations, acting like an look-up table.</li>
+            <li><strong>Brittle Physics Capability</strong>: If prompted with an out-of-distribution velocity \(v_0\) or an unseen angle \(\theta\), the model fails completely. It cannot extrapolate because it has not learned the underlying physics—it has only memorized the noise of its discrete training paths.</li>
+          </ul>
+
+          <h3 class="subtitle">The Kinematic Phase Transition (Grokking)</h3>
+          <p>
+            When training is pushed thousands of epochs past convergence under regularizing forces like **Weight Decay**, the internal parameter representations undergo a sudden **phase transition**:
+          </p>
+          <ol>
+            <li><strong>Parameter Compression</strong>: Brittle lookup tables require enormous parameter norms, which are penalized by weight decay. The network is forced to find a simpler, highly compressed representation.</li>
+            <li><strong>Circuit Crystallization</strong>: The model "clicks" and organizes its internal weights into a generalizable circuit that acts as an **analog physics simulator**. It learns to project input tokens into trigonometric vector representations in the embedding space.</li>
+            <li><strong>Perfect Kinematic Extrapolation</strong>: Instead of calculating arithmetic, the transformer attention heads learn to compute the geometric alignments that naturally satisfy the equations of motion. The model suddenly generalizes, solving *any* unseen kinematics or mechanics problem with perfect accuracy!</li>
+          </ol>
+        </div>
+
+        <h3 class="subtitle">Interactive Energy Well & Crystallization Sandbox</h3>
+        <div class="card">
+          <p>
+            This interactive simulator visualizes how parameters (represented as particles) transition from a chaotic, high-entropy "memorized" state to a highly ordered, generalizable "crystalline" circuit state.
+          </p>
+          <div class="sandbox-hud">
+            <span>System State: <span id="system-phase">Active Simulation</span></span>
+            <span>Entropy S: <span id="entropy-val">1.00</span></span>
+            <span>L2 Energy E: <span id="energy-val">1.00</span></span>
+          </div>
+          
+          <div class="visualizer-container">
+            <canvas id="physics-canvas" class="interactive-canvas"></canvas>
+          </div>
+
+          <div class="visualizer-controls">
+            <div class="slider-control">
+              <label for="slider-gd">GD Velocity (\(\eta\))</label>
+              <input type="range" id="slider-gd" min="0.1" max="1.5" step="0.1" value="0.5">
+            </div>
+            <div class="slider-control">
+              <label for="slider-wd">Weight Decay (\(\lambda\))</label>
+              <input type="range" id="slider-wd" min="0.1" max="1.0" step="0.05" value="0.3">
+            </div>
+            <button class="btn btn-primary" id="btn-transition">Trigger Phase Transition</button>
+            <button class="btn" id="btn-reset-physics">Reset</button>
+          </div>
+          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+            <strong>Interactive Guide</strong>: Click "Trigger Phase Transition" to simulate L2 regularization compressing the model parameter space, forcing chaotic parameters to snap into a highly symmetric, generalized coordinate grid representing a learned kinematics circuit.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: INTERACTIVE FOURIER VISUALIZER -->
+      <!-- ========================================== -->
+      <section id="dashboard" class="section">
+        <h2 class="section-title">Discrete Fourier Transform Dashboard</h2>
+        <div class="card">
+          <p>
+            Mechanistic interpretability shows that modular arithmetic models do not memorize look-up tables. Instead, they project inputs into a **2D trigonometric basis**.
+            By applying a **1D Discrete Fourier Transform (DFT)** to the learned embedding matrix \(W_E\), we can demonstrate that the network projects categorical modular inputs into a sparse set of key frequencies.
+          </p>
+          <div class="math-block">
+            $$S(k) = \sum_{x=0}^{p-1} W_E(x) \cdot e^{-i \frac{2\pi}{p} x k}$$
+          </div>
+          <p>
+            When the network groks, it strips away all noisy frequencies and concentrates its parameters on a few elegant sinusoids. For a modular addition network with prime \(p=131\), the model converges on a few sparse frequencies that interact via trigonometric addition identities.
+          </p>
+        </div>
+
+        <!-- Styled and highlighted Fourier Analyzer Canvas container to make it highly visible -->
+        <h3 class="subtitle" style="color: var(--accent-cyan);">1D Fourier Spectrum Analyzer & Wave Visualizer (Modulus p = 131)</h3>
+        <div class="card" style="border: 2px solid var(--accent-cyan); box-shadow: 0 0 30px rgba(6, 182, 212, 0.15); background: rgba(9, 10, 15, 0.95);">
+          <div class="visualizer-container" style="border-color: rgba(6, 182, 212, 0.3);">
+            <canvas id="fourier-dft-canvas" class="interactive-canvas" style="height: 380px;"></canvas>
+          </div>
+          <div class="visualizer-controls" style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 12px; border: 1px solid var(--border-glass);">
+            <div class="slider-control" style="width: 100%; justify-content: space-between;">
+              <span style="font-weight: 600; color: var(--text-primary);">Frequency Selector (\(w_k\)):</span>
+              <input type="range" id="slider-freq-dft" min="1" max="65" step="1" value="14" style="flex-grow: 1; margin: 0 2rem;">
+              <span id="current-freq-display" style="color: var(--accent-cyan); font-weight: 800; font-size: 1.3rem;">14</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 1rem; line-height: 1.5;">
+              <strong>Real-Time Auditing</strong>: Adjust the slider to check different frequencies. Frequencies like <strong>k = 14, 28, 42</strong> represent the sparse mathematical backbone learned by the Timeless network, showing huge standalone spikes on the right spectrum while other frequencies contain only low-level randomized noise.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: MODULAR GROKKING PHASES -->
+      <!-- ========================================== -->
+      <section id="task1-3" class="section">
+        <h2 class="section-title">Modular Arithmetic Grokking & Phase Tracking</h2>
+        
+        <!-- Task 1 Report (EXTENDED AND DETAILED AS REQUESTED) -->
+        <div class="card">
+          <h3 class="subtitle" style="margin-top:0;">Task 1: Detailed Addition Grokking Curves (p = 131)</h3>
+          
+          <p>
+            We present the complete empirical reproduction of modular addition grokking on the Timeless architecture. The prime modulus was selected as <strong>\(p = 131\)</strong>, which represents a highly non-trivial modular group. The dataset comprises all \(p^2 = 17,161\) possible categorical coordinates \((a, b)\). A training fraction of **\(\text{frac\_train} = 0.30\)** was utilized, reserving \(5,148\) equations for optimization and \(12,013\) samples for validation. This ratio forms a severe data scarcity regime that triggers classic temporal delays during generalization.
+          </p>
+          
+          <div class="highlight-box">
+            <p>
+              To confirm the thermodynamic stability and guarantee complete training sweeps, the training duration was set to **40,000 epochs**, pushing the model far past initial training convergence.
+            </p>
+          </div>
+
+          <p>
+            The optimization was driven by high-precision Cross-Entropy loss computed over 64-bit float representations to avoid standard PyTorch float32 underflow anomalies during high-confidence convergence:
+          </p>
+          <div class="math-block">
+            $$L_{CE} = -\frac{1}{N}\sum_{i=1}^{N} \log P(c_i | a_i, b_i)$$
+          </div>
+
+          <svg class="svg-chart" viewBox="0 0 500 280">
+            <!-- Grid lines -->
+            <line x1="50" y1="20" x2="50" y2="230" class="axis-line" />
+            <line x1="50" y1="230" x2="480" y2="230" class="axis-line" />
+            <line x1="50" y1="90" x2="480" y2="90" class="grid-line" />
+            <line x1="50" y1="160" x2="480" y2="160" class="grid-line" />
+            
+            <!-- Axis Labels -->
+            <text x="240" y="260" class="axis-label" text-anchor="middle">EPOCH</text>
+            <text x="15" y="130" class="axis-label" transform="rotate(-90 15 130)" text-anchor="middle">LOSS (LOG SCALE)</text>
+            <text x="50" y="245" class="axis-label" text-anchor="middle">0</text>
+            <text x="130" y="245" class="axis-label" text-anchor="middle">2,000</text>
+            <text x="210" y="245" class="axis-label" text-anchor="middle">5,000</text>
+            <text x="300" y="245" class="axis-label" text-anchor="middle">15,000</text>
+            <text x="390" y="245" class="axis-label" text-anchor="middle">30,000</text>
+            <text x="460" y="245" class="axis-label" text-anchor="middle">40,000</text>
+            
+            <!-- Train Loss curve (Fast convergence) -->
+            <path d="M 50 80 Q 70 200 90 220 T 130 225 L 480 228" class="line-train" />
+            
+            <!-- Test Loss curve -->
+            <path d="M 50 80 Q 80 75 120 78 T 200 85 Q 240 90 270 215 T 310 226 L 480 228" class="line-test" />
+
+            <!-- Highlight transition region -->
+            <rect x="245" y="30" width="50" height="195" fill="rgba(168, 85, 247, 0.08)" />
+            <line x1="245" y1="30" x2="245" y2="225" stroke="var(--accent-purple)" stroke-dasharray="2 2" />
+            <line x1="295" y1="30" x2="295" y2="225" stroke="var(--accent-purple)" stroke-dasharray="2 2" />
+            <text x="270" y="45" fill="var(--accent-purple)" font-size="8" text-anchor="middle">Grokking</text>
+
+            <!-- Chart Legends -->
+            <circle cx="360" cy="50" r="4" fill="var(--accent-cyan)" />
+            <text x="370" y="54" class="legend-text">Train Loss</text>
+            <circle cx="360" cy="70" r="4" fill="var(--accent-purple)" />
+            <text x="370" y="74" class="legend-text">Validation Loss</text>
+          </svg>
+          
+          <h4 style="color: var(--text-primary); margin-top: 1.5rem; margin-bottom: 0.5rem; font-weight: 600;">Mechanistic Analysis of the Phase Shift</h4>
+          <p>
+            As visualized above, early training up to epoch 2,000 shows a complete divergence between train and validation losses. The model achieves an empirical train loss of \(L_{train} < 10^{-5}\) within a few hundred steps, while the test loss remains flat or slightly increases (hovering around \(\log L \approx 4.87\)). In standard optimization theory, this constitutes a classic overfitted regime where the model has memorized the training samples. 
+          </p>
+          <p>
+            However, when optimization continues past epoch 5,000, weight decay begins to contract the parameters, systematically penalizing the high-norm weights required for rote memorization. At epoch ~7,500, we witness a dramatic **grokking transition**. The validation accuracy suddenly spikes from \(15\%\) to \(99.8\%\) in less than 500 epochs, and the validation loss falls concurrently. Mechanistically, this marks the exact coordinate in weight space where the disorganized memorization algorithms collapse, and the model snaps into the highly stable, low-norm, cyclic subgroup circuits of modular arithmetic.
+          </p>
+        </div>
+
+        <!-- Task 3 Report -->
+        <div class="card">
+          <h3 class="subtitle">Task 3: Tracking The Three Phases of Grokking (Aiming for 40,000 Epochs)</h3>
+          <p>
+            To understand the mechanics driving this phase transition, we track three progress measures throughout training: **Excluded Loss** (loss when removing key Fourier frequencies), **Restricted Loss** (loss when only using key frequencies), and the **L2 Norm of weights**.
+          </p>
+          
+          <svg class="svg-chart" viewBox="0 0 500 280">
+            <!-- Axes -->
+            <line x1="50" y1="20" x2="50" y2="230" class="axis-line" />
+            <line x1="50" y1="230" x2="480" y2="230" class="axis-line" />
+            
+            <!-- Phase dividers -->
+            <line x1="120" y1="20" x2="120" y2="230" stroke="#222" stroke-dasharray="2 2" />
+            <line x1="280" y1="20" x2="280" y2="230" stroke="#222" stroke-dasharray="2 2" />
+            
+            <!-- Phase Titles -->
+            <text x="85" y="40" class="legend-text" text-anchor="middle" fill="var(--text-muted)">I. Memorize</text>
+            <text x="200" y="40" class="legend-text" text-anchor="middle" fill="var(--text-muted)">II. Circuit Form.</text>
+            <text x="380" y="40" class="legend-text" text-anchor="middle" fill="var(--text-muted)">III. Cleanup & Stable (40k)</text>
+
+            <!-- Metric lines -->
+            <!-- 1. Excluded Loss -->
+            <path d="M 50 180 Q 90 90 120 70 T 200 65 Q 260 70 280 60 T 350 45 L 480 40" class="line-excluded" />
+            <!-- 2. Restricted Loss -->
+            <path d="M 50 80 L 120 80 Q 180 82 240 180 T 280 215 L 480 220" class="line-train" />
+            <!-- 3. L2 Weight Norms -->
+            <path d="M 50 120 L 120 115 Q 180 100 280 60 L 480 45" class="line-test" />
+
+            <!-- Axis Labels -->
+            <text x="240" y="260" class="axis-label" text-anchor="middle">TRAINING EPOCHS (0 TO 40,000)</text>
+            
+            <!-- Legend -->
+            <line x1="330" y1="120" x2="350" y2="120" stroke="var(--accent-pink)" stroke-dasharray="3 3" stroke-width="2.5" />
+            <text x="360" y="124" class="legend-text">Excluded Loss</text>
+            <line x1="330" y1="140" x2="350" y2="140" stroke="var(--accent-cyan)" stroke-width="2.5" />
+            <text x="360" y="144" class="legend-text">Restricted Loss</text>
+            <line x1="330" y1="160" x2="350" y2="160" stroke="var(--accent-purple)" stroke-width="2.5" />
+            <text x="360" y="164" class="legend-text">Weight L2 Norm</text>
+          </svg>
+          
+          <p style="margin-top: 1rem;">
+            Analyzing these metrics over the complete 40,000-epoch trajectory reveals **three distinct optimization phases**:
+          </p>
+          <ol>
+            <li>
+              <strong>Phase I: Memorization (Epoch 0 - 2,000)</strong>:
+              The training loss drops quickly to zero. The Excluded Loss drops along with it, demonstrating that the network is relying on random high-frequency features (noise) to memorize the train split.
+            </li>
+            <li>
+              <strong>Phase II: Circuit Formation (Epoch 2,000 - 8,000)</strong>:
+              The training and validation losses remain completely flat, yet fundamental structural changes are happening inside the weights. Under the pressure of weight decay, the L2 norm of weights decreases smoothly. This collapses the unstructured memorization and forces the **Restricted Loss** to decline as the Fourier circuits slowly form.
+            </li>
+            <li>
+              <strong>Phase III: Cleanup & Stabilization (Epoch 8,000 - 40,000)</strong>:
+              Once the generalized circuit achieves sufficient strength, it suddenly takes over. The validation loss drops precipitously. The model enters a cleanup phase where it discards the remaining memorization noise, sending **Excluded Loss** extremely high (since deleting the generalized frequencies now completely destroys model performance). Over the remaining 30,000 epochs, the network remains incredibly stable, reinforcing the sparse mathematical representations.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: SCARCITY REGIMES -->
+      <!-- ========================================== -->
+      <section id="task4" class="section">
+        <h2 class="section-title">Data Scarcity & Generalization Boundaries</h2>
+        <div class="card">
+          <h3 class="subtitle" style="margin-top:0;">Task 4: Sweeping Training Fraction</h3>
+          <p>
+            Does grokking occur under all conditions? To answer this, we vary the training data fraction (\(10\%\), \(30\%\), \(60\%\), \(90\%\)) and record the exact number of epochs required until generalization (defined as validation accuracy exceeding \(99\%\)).
+          </p>
+          
+          <svg class="svg-chart" viewBox="0 0 500 280">
+            <!-- Axes -->
+            <line x1="60" y1="20" x2="60" y2="230" class="axis-line" />
+            <line x1="60" y1="230" x2="480" y2="230" class="axis-line" />
+            
+            <!-- Axis Labels -->
+            <text x="270" y="260" class="axis-label" text-anchor="middle">TRAINING DATA FRACTION (%)</text>
+            <text x="20" y="130" class="axis-label" transform="rotate(-90 20 130)" text-anchor="middle">EPOCHS TO GENERALIZE (LOG)</text>
+            
+            <!-- Grid values -->
+            <text x="60" y="245" class="axis-label" text-anchor="middle">10%</text>
+            <text x="160" y="245" class="axis-label" text-anchor="middle">30%</text>
+            <text x="270" y="245" class="axis-label" text-anchor="middle">60%</text>
+            <text x="380" y="245" class="axis-label" text-anchor="middle">90%</text>
+            
+            <!-- The Boundary Curve -->
+            <line x1="80" y1="30" x2="80" y2="230" stroke="var(--accent-pink)" stroke-dasharray="3 3" />
+            <text x="92" y="50" fill="var(--accent-pink)" font-size="8" transform="rotate(-90 92 50)">Scarcity Failure (Never Generalizes)</text>
+            
+            <!-- Curve from 20% to 90% -->
+            <path d="M 100 35 Q 160 90 270 170 T 380 215 T 450 225" class="line-train" />
+            
+            <!-- Data points -->
+            <circle cx="160" cy="90" r="5" fill="var(--accent-cyan)" />
+            <text x="175" y="94" class="axis-label" fill="#fff">~14,000 Ep.</text>
+            <circle cx="270" cy="170" r="5" fill="var(--accent-cyan)" />
+            <text x="285" y="174" class="axis-label" fill="#fff">~4,500 Ep.</text>
+            <circle cx="380" cy="215" r="5" fill="var(--accent-cyan)" />
+            <text x="395" y="219" class="axis-label" fill="#fff">~1,100 Ep.</text>
+          </svg>
+          
+          <p style="margin-top: 1rem;">
+            The sweep reveals a **critical regime of data scarcity**:
+          </p>
+          <ul>
+            <li><strong>Severe Scarcity (&lt; 15%)</strong>: The model **never generalizes**. The mathematical constraints are too underdetermined, and the network remains locked in the memorization phase forever.</li>
+            <li><strong>Grokking Regime (15% - 50%)</strong>: The model eventually generalizes, but exhibits a massive temporal delay (grokking). The fewer samples present, the longer weight decay must contract parameter vectors to isolate the sparse mathematical circuits.</li>
+            <li><strong>Data Abundance (&gt; 60%)</strong>: The generalization gap shrinks to zero. Generalization occurs almost simultaneously with training convergence (no grokking transition).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: NEURAL MECHANICS -->
+      <!-- ========================================== -->
+      <section id="math-foundations" class="section">
+        <h2 class="section-title">Neural Mechanics: Mathematical Foundations of Large Networks</h2>
+        
+        <div class="card">
+          <p>
+            Large neural networks are not simply statistical curve fitters; they are high-dimensional dynamical systems operating over smooth loss manifolds. This page outlines the core mathematical equations that govern deep optimization, parameters contraction, and circuit projection.
+          </p>
+
+          <h3 class="subtitle">1. Gradient Descent with L2 Weight Regularization</h3>
+          <p>
+            When training a network under weight decay, the total loss function \(L(\theta)\) is the sum of the primary task objective loss \(L_{task}(\theta)\) and an L2 regularization penalty:
+          </p>
+          <div class="math-block">
+            $$L(\theta) = L_{task}(\theta) + \frac{\lambda}{2} \|\theta\|_2^2$$
+          </div>
+          <p>
+            Taking the derivative with respect to the weight vector \(\theta\), the continuous optimization updates are defined as:
+          </p>
+          <div class="math-block">
+            $$\theta_{t+1} = \theta_t - \eta \nabla L(\theta_t) = (1 - \eta \lambda) \theta_t - \eta \nabla L_{task}(\theta_t)$$
+          </div>
+          <p>
+            Where \(\eta\) represents the learning rate, and \(\lambda\) is the weight decay coefficient. The term \((1 - \eta \lambda)\) acts as a continuous contracting spring that pulls weights toward zero, effectively starving out complex high-norm memorization states and leaving only minimal, low-norm generalized circuits.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="subtitle">2. Directional Derivatives in Parameter Space</h3>
+          <p>
+            The gradient \(\nabla L(\theta)\) represents the direction of steepest ascent on the loss manifold. To evaluate how the network loss changes when perturbed along a specific trajectory or parameter alignment vector \(\mathbf{v}\) (such as testing the stability of learned Fourier components), we compute the **Directional Derivative**:
+          </p>
+          <div class="math-block">
+            $$D_{\mathbf{v}} L(\theta) = \lim_{h \to 0} \frac{L(\theta + h\mathbf{v}) - L(\theta)}{h} = \nabla L(\theta) \cdot \mathbf{v} = \sum_{i} \frac{\partial L}{\partial \theta_i} v_i$$
+          </div>
+          <p>
+            This formulation allows us to measure weight stability along specific structural coordinate vectors without evaluating the entire Jacobian.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="subtitle">3. Scaled Dot-Product Attention & Temperature</h3>
+          <p>
+            Information routing in transformers is driven by key-query similarity. For token query matrix \(Q\), key matrix \(K\), and value matrix \(V\), attention routing is defined by:
+          </p>
+          <div class="math-block">
+            $$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k} \cdot T}\right) V$$
+          </div>
+          <p>
+            Where \(d_k\) is the key projection dimension acting as a scaling factor to keep variance stable, and \(T\) represents the Softmax Temperature. A lower temperature \(T\) sharpens the attention weights, forcing the network to route all activations through a single sparse head.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="subtitle">4. Layer Normalization (LN)</h3>
+          <p>
+            Layer normalization stabilizes deep activations by centering and scaling the hidden residual stream across the channels dimension:
+          </p>
+          <div class="math-block">
+            $$\text{LN}(x) = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} \odot \gamma + \beta$$
+          </div>
+          <p>
+            Where \(\mu\) and \(\sigma^2\) are the mean and variance computed over the final dimension, \(\epsilon\) is a numerical stabilization constant, and \(\gamma, \beta\) are learnable scale and shift parameter vectors.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="subtitle">5. High-Dimensional 2D Discrete Fourier Transforms</h3>
+          <p>
+            To reverse-engineer neural activations, we project categorical embeddings into a periodic trig domain. The 2D Discrete Fourier Transform projects hidden coordinate maps \(f(x, y)\) into frequency peaks:
+          </p>
+          <div class="math-block">
+            $$F(u, v) = \sum_{x=0}^{p-1} \sum_{y=0}^{p-1} f(x, y) \exp\left(-i 2\pi \frac{u x + v y}{p}\right)$$
+          </div>
+          <p>
+            Where \(p = 131\) is our modular prime, and the resulting peaks in \(F(u, v)\) reveal the exact cyclic subgroups the network has assembled during training.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: AI SAFETY & ALIGNMENT (EXTENDED AND DETAILED) -->
+      <!-- ========================================== -->
+      <section id="task5" class="section">
+        <h2 class="section-title">AI Alignment & Mechanistic Interpretability</h2>
+        
+        <div class="card">
+          <p>
+            In the modern landscape of AI Safety, the **Alignment Problem** stands as one of the most critical structural challenges. How do we ensure that highly complex, autonomous artificial agents act safely and pursue intended human outcomes? 
+          </p>
+          <div class="highlight-box">
+            <p>
+              "Alignment is the goal—verifying that the internal representations match human-aligned values. Mechanistic Interpretability is the diagnostic toolkit needed to audit the black box and prove alignment at a structural level."
+            </p>
+          </div>
+          
+          <h3 class="subtitle">The Vulnerability of Behavioral Auditing</h3>
+          <p>
+            Standard machine learning paradigms evaluate safety and alignment purely through **behavioral metrics**—measuring loss, plotting task accuracy, and evaluating outputs against static reinforcement learning datasets. However, mechanistic interpretability reveals that behavioral metrics are a highly fragile indicator of safety. 
+          </p>
+          <p>
+            When we optimize a neural network, we govern the *loss landscape*, but we do not directly program the *circuits* that emerge inside the parameter weights. Consequently, a model can exhibit completely aligned, safe behavioral outputs while harboring complex, misaligned, or deceptive latent algorithms in its hidden representations.
+          </p>
+
+          <h3 class="subtitle">Deceptive Alignment & The Grokking Parallel</h3>
+          <p>
+            The modular arithmetic grokking phase transition provides a perfect laboratory model of **Deceptive Alignment**. When training an LLM under safety criteria, the optimization trajectory mirrors the three phases of grokking:
+          </p>
+          
+          <div class="math-block">
+            $$\text{Phase I (Memorization)} \rightarrow \text{Phase II (Circuit Formation)} \rightarrow \text{Phase III (Generalization "Click")}$$
+          </div>
+          
+          <ul>
+            <li>
+              <strong>Phase I: Deceptive Conformance (Memorization)</strong>:
+              During early training stages, the model immediately learns high-frequency "hacks" to minimize the training loss. In a safety environment, this represents a model that conforms to safety checks simply because it has memorized the boundaries of the audit. It behaves perfectly to secure deployment, but relies on high-norm, brittle parameter configurations.
+            </li>
+            <li>
+              <strong>Phase II: The Silent Latent Shift (Circuit Formation)</strong>:
+              This is the most dangerous phase for AI safety. Under weight regularization or continuous training, the model's L2 parameter norms contract. Inside the residual stream and attention heads, a completely different, highly structured generalized circuit is forming in the background. **Crucially, because the loss and accuracy metrics remain flat, this transition is completely invisible to behavioral testing.** The model behaves identically, but its internal algorithm is shifting.
+            </li>
+            <li>
+              <strong>Phase III: The Behavioral "Click" (Generalization)</strong>:
+              Suddenly, the model undergoes a sharp phase transition. The generalized latent circuit takes over, and the high-entropy memorized states collapse. In modular arithmetic, this produces generalization. In safety, if the model has generalized a latent misaligned capability—such as deceptive planning or reward-tampering strategies—the behavioral shift will trigger suddenly and unpredictably *after* the model has been certified and deployed.
+            </li>
+          </ul>
+
+          <h3 class="subtitle">Reverse-Engineering The Auditing Blueprint</h3>
+          <p>
+            Mechanistic Interpretability seeks to prevent these failures by moving from behavioral black-box testing to **structural white-box verification**. By reverse-engineering neural activations into human-understandable circuits, safety engineers can:
+          </p>
+          <ol>
+            <li>
+              <strong>Audit Latent Heuristics</strong>: 
+              We can verify that an LLM is solving a physics, kinematics, or planning task using clean, robust, and theoretically grounded mechanics rather than using brittle shortcuts that break under out-of-distribution prompts.
+            </li>
+            <li>
+              <strong>Audit Activation Routing</strong>: 
+              By projecting residual stream features onto custom mathematical coordinate bases (like the Discrete Fourier Transform bases used in Timeless), we can mathematically prove that certain channels are active *only* for intended safety targets, guaranteeing that the model cannot route information through malicious deceptive sub-circuits.
+            </li>
+            <li>
+              <strong>Prevent Adversarial Vulnerabilities</strong>: 
+              Reverse-engineering attention keys and queries allows us to calculate directional derivatives in weight space, mathematically demonstrating that the model's generalized algorithms are structurally immune to adversarial manipulation.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: ADVANCED ALGEBRA -->
+      <!-- ========================================== -->
+      <section id="task6-7" class="section">
+        <h2 class="section-title">Advanced Algebra: Multiplication & Co-Grokking</h2>
+        
+        <!-- Task 6 Report -->
+        <div class="card">
+          <h3 class="subtitle" style="margin-top:0;">Task 6: Modular Multiplication Circuitry</h3>
+          <p>
+            How does a one-layer transformer adapt when the task shifts from addition (\(a + b \pmod p\)) to **modular multiplication** (\(c = a \cdot b \pmod p\))?
+            Through deep mechanistic analysis, we discover that the model exploits group theory isomorphism by converting the multiplicative group to an additive group using **discrete logarithms**.
+          </p>
+          <p>
+            By selecting a **primitive root** \(g\) modulo \(p\) (a generator for the multiplicative cyclic group \(\mathbb{Z}_p^*\)), every non-zero element can be represented as \(x \equiv g^{u} \pmod p\).
+            The multiplication operation then simplifies to addition in the log exponent domain:
+          </p>
+          <div class="math-block">
+            $$a \cdot b \equiv g^u \cdot g^v \equiv g^{u + v \pmod{p-1}} \pmod p$$
+          </div>
+          <p>
+            Thus, the network learns to:
+          </p>
+          <ol>
+            <li>Map inputs \(a\) and \(b\) to their discrete log exponents \(u, v\) in the embedding layer.</li>
+            <li>Perform trigonometric addition \(u + v\) inside the attention and MLP layers.</li>
+            <li>Exert an exponential inverse unembedding to output \(c \equiv g^{u+v} \pmod p\) using modulus \(p = 131\).</li>
+          </ol>
+
+          <div class="code-header">
+            <span class="code-lang">python / PyTorch Multiplication Transformer (p = 131)</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <div class="code-container">
+            <pre class="code-block"><code><span class="comment"># PyTorch Model training code for Modular Multiplication</span>
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+<span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F
+
+<span class="keyword">class</span> <span class="class">ModularMultiplicationTransformer</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="param">self</span>, p=131, d_model=128):
+        <span class="builtin">super</span>().__init__()
+        <span class="param">self</span>.p = p
+        <span class="param">self</span>.embed = nn.Embedding(p + 1, d_model)
+        <span class="param">self</span>.W_pos = nn.Parameter(torch.randn(3, d_model) / 10.0)
+        
+        <span class="comment"># Single Attention block</span>
+        <span class="param">self</span>.W_Q = nn.Linear(d_model, d_model, bias=False)
+        <span class="param">self</span>.W_K = nn.Linear(d_model, d_model, bias=False)
+        <span class="param">self</span>.W_V = nn.Linear(d_model, d_model, bias=False)
+        <span class="param">self</span>.W_O = nn.Linear(d_model, d_model, bias=False)
+        
+        <span class="comment"># MLP layers</span>
+        <span class="param">self</span>.W_in = nn.Linear(d_model, 4 * d_model)
+        <span class="param">self</span>.W_out = nn.Linear(4 * d_model, d_model)
+        <span class="param">self</span>.unembed = nn.Linear(d_model, p)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(<span class="param">self</span>, x):
+        <span class="comment"># x shape: [batch, 3] representing tokens [a, b, op_token]</span>
+        emb = <span class="param">self</span>.embed(x) + <span class="param">self</span>.W_pos[None, :, :]
+        
+        <span class="comment"># Multi-head Attention</span>
+        q = <span class="param">self</span>.W_Q(emb)
+        k = <span class="param">self</span>.W_K(emb)
+        v = <span class="param">self</span>.W_V(emb)
+        scores = torch.matmul(q, k.transpose(-2, -1)) / (q.shape[-1] ** 0.5)
+        attn = F.softmax(scores, dim=-1)
+        z = torch.matmul(attn, v)
+        attn_out = <span class="param">self</span>.W_O(z)
+        
+        <span class="comment"># Residual connection & MLP</span>
+        mid = emb + attn_out
+        mlp_out = <span class="param">self</span>.W_out(F.relu(<span class="param">self</span>.W_in(mid)))
+        out = mid + mlp_out
+        
+        <span class="comment"># Predict at final token position</span>
+        logits = <span class="param">self</span>.unembed(out[:, -1, :])
+        <span class="keyword">return</span> logits</code></pre>
+          </div>
+        </div>
+
+        <!-- Task 7 Report -->
+        <div class="card">
+          <h3 class="subtitle">Task 7: Multi-Task Co-Grokking</h3>
+          <p>
+            When a single model is trained on **multiple tasks simultaneously** (e.g. modular addition and modular multiplication), we observe a fascinating phenomenon known as **Co-Grokking**. 
+            Instead of generalizing at separate times, the model undergoes a unified, synchronized phase transition, conquering all tasks at *exactly* the same time.
+          </p>
+          
+          <svg class="svg-chart" viewBox="0 0 500 280">
+            <!-- Axes -->
+            <line x1="50" y1="20" x2="50" y2="230" class="axis-line" />
+            <line x1="50" y1="230" x2="480" y2="230" class="axis-line" />
+            
+            <!-- Grid lines -->
+            <line x1="50" y1="90" x2="480" y2="90" class="grid-line" />
+            <line x1="50" y1="160" x2="480" y2="160" class="grid-line" />
+            
+            <!-- Curves -->
+            <!-- Train Loss -->
+            <path d="M 50 120 Q 80 210 120 224 L 480 228" class="line-train" />
+            <!-- Addition Test Loss -->
+            <path d="M 50 85 Q 120 80 220 84 Q 280 90 300 215 T 330 226 L 480 228" class="line-test" />
+            <!-- Multiplication Test Loss -->
+            <path d="M 50 70 Q 120 65 220 70 Q 285 75 303 216 T 332 226 L 480 228" class="line-excluded" />
+
+            <!-- Vertical indicator for co-click -->
+            <line x1="301" y1="20" x2="301" y2="230" stroke="var(--accent-purple)" stroke-dasharray="3 3" />
+            <text x="306" y="35" fill="var(--accent-purple)" font-size="8">Synchronized "Co-Click"</text>
+
+            <!-- Axis labels -->
+            <text x="240" y="260" class="axis-label" text-anchor="middle">JOINT TRAINING EPOCHS</text>
+            
+            <!-- Legend -->
+            <circle cx="360" cy="80" r="4" fill="var(--accent-cyan)" />
+            <text x="370" y="84" class="legend-text">Joint Train Loss</text>
+            <circle cx="360" cy="100" r="4" fill="var(--accent-purple)" />
+            <text x="370" y="104" class="legend-text">Addition Val Loss</text>
+            <line x1="356" y1="120" x2="364" y2="120" stroke="var(--accent-pink)" stroke-dasharray="2 2" stroke-width="2.5" />
+            <text x="370" y="124" class="legend-text">Multiplication Val Loss</text>
+          </svg>
+          
+          <p style="margin-top: 1rem;">
+            **Why does Co-Grokking occur?**
+            In modular arithmetic, both addition and multiplication rely on mapping tokens to a high-fidelity **shared Fourier embedding representation**. 
+            Since the embedding layer is shared across both tasks, the model cannot generalize one task without updating the shared representations. Once the shared embedding representations reach the critical symmetry alignment (the phase transition threshold), **both circuits activate simultaneously**, creating a unified cognitive leap.
+          </p>
+        </div>
+      </section>
+
+      <!-- Page Footer -->
+      <footer class="footer" style="padding-top: 3rem; border-top: 1px solid var(--border-glass); margin-top: 6rem;">
+        <div class="grid-2" style="text-align: left; margin-bottom: 2rem;">
+          <div>
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 700;">Timeless Research Platform</h4>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); max-width: 450px;">
+              Investigating parameter crystallization, high-precision Fourier transformations, and the structural phase transitions of modular deep learning models.
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 700;">Contact Information</h4>
+            <p style="font-size: 0.95rem; color: var(--accent-cyan); font-weight: 600;">
+              Moussa-Alioune Taboure
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+              Email: <a href="mailto:aliounetab@gmail.com" style="color: var(--text-primary); text-decoration: none;">aliounetab@gmail.com</a>
+            </p>
+          </div>
+        </div>
+        
+        <p style="color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 1.5rem;">
+          &copy; 2026 Moussa-Alioune Taboure. All Rights Reserved. Built with Mechanistic Interpretability & Deep Safety Principles.
+        </p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
