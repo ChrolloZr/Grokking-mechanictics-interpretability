@@ -1,6 +1,5 @@
 /*
  * Timeless: The Physics of Modular Grokking & Mechanistic Interpretability
- * Designed for Moussa-Alioune Taboure
  * Interactive Core Javascript File
  */
 
