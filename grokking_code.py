@@ -1,6 +1,5 @@
 """
-Epiphany: Modular Grokking & Mechanistic Interpretability Pipeline
-Written for Moussa-Alioune Taboure
+Timeless: Modular Grokking & Mechanistic Interpretability Pipeline
 Standalone PyTorch Research Script (Compatible with Google Colab & local CUDA)
 """
 
