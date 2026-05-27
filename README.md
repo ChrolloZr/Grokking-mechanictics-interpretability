@@ -1,4 +1,4 @@
-Timeless: Neural Mechanics & Kinematic Grokking
+Timeless: Neural Mechanics & Grokking
 This repository contains the core research, implementation, and interactive dashboard for investigating parameter crystallization and structural phase transitions in modular deep learning models.
 
 The project explores how models learn to perform modular arithmetic tasks, transitioning from a memorization phase to a "grokking" phase where they discover underlying mathematical Fourier structures.
@@ -32,6 +32,6 @@ The live research dashboard is hosted via GitHub Pages:
  https://chrollozr.github.io/Grokking-mechanictics-interpretability/
 
 Credits
-This project was developed by Moussa-Alioune Taboure at Vanier College
+This project was developed by Moussa-Alioune Taboure with the help of Google Antigravity.
 
-Research assistance provided by mai.trigraph.org and Ivan T. Ivanov
+Research assistance provided by Ivan T. Ivanov and mai.trigraph.org
